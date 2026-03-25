@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusPrice AI | Advanced A/B Testing Lab</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --accent: #f43f5e;
+            --success: #10b981;
+            --dark: #0f172a;
+            --bg-light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--dark);
+            margin: 0; padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-wrapper { max-width: 1300px; margin: 0 auto; }
+
+        /* Header Estilo App */
+        .app-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--dark); color: white;
+            padding: 1.5rem 2rem; border-radius: 16px; margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .status-dot {
+            height: 10px; width: 10px; background-color: var(--success);
+            border-radius: 50%; display: inline-block; margin-right: 8px;
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        /* Grid de Métricas Avanzadas */
+        .grid-main {
+            display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white; border-radius: 16px; padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;
+        }
+
+        .metric-value { font-size: 2.5rem; font-weight: 800; margin: 10px 0; }
+        
+        /* Simulación de Heatmap */
+        .heatmap-container {
+            display: flex; gap: 10px; height: 200px; align-items: flex-end;
+            padding: 20px; background: #f1f5f9; border-radius: 12px;
+        }
+
+        .heatmap-bar {
+            flex: 1; background: linear-gradient(to top, var(--primary), var(--accent));
+            border-radius: 4px 4px 0 0; transition: height 1s ease;
+        }
+
+        /* Secciones de la Tarea */
+        .step-tag {
+            background: #e0e7ff; color: var(--primary);
+            padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;
+        }
+
+        /* Comparativa de Dispositivos */
+        .device-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .device-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
+        .win-pill { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+
+        .btn-action {
+            background: var(--primary); color: white; border: none;
+            padding: 12px 24px; border-radius: 8px; cursor: pointer;
+            font-weight: 600; transition: 0.3s;
+        }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    </style>
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    <header class="app-header">
+        <div>
+            <h1 style="margin:0; font-size: 1.5rem;">NexusPrice AI <span style="font-weight:300">Admin Console</span></h1>
+            <p style="margin:0; font-size: 0.8rem; opacity: 0.7;">Proyecto: Optimización de Embudo de Ventas con Modelos Predictivos</p>
+        </div>
+        <div>
+            <span class="status-dot"></span> Experimento Activo: Día 14 de 14
+        </div>
+    </header>
+
+    <div class="grid-main">
+        <div class="card">
+            <div style="display:flex; justify-content:space-between">
+                <h3><span class="step-tag">Sección 4 & 5</span> Rendimiento Acumulado del Experimento</h3>
+                <button class="btn-action" onclick="alert('Exportando Reporte para el PDF...')">Generar Informe</button>
+            </div>
+            <canvas id="mainAbChart" height="150"></canvas>
+        </div>
+
+        <div class="card" style="background: var(--dark); color: white;">
+            <h3>Análisis Predictivo (LLM)</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Probabilidad de que la Variante B sea mejor que la A:</p>
+            <div class="metric-value" style="color: var(--success);">99.8%</div>
+            <hr style="opacity: 0.1;">
+            <p><strong>P-Value:</strong> 0.0012</p>
+            <p><strong>Intervalo de Confianza:</strong> [14.2% - 18.5%]</p>
+            <div style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.05); border-radius:10px;">
+                <small>💡 Insight: El modelo detectó que los usuarios de móviles reaccionan un 40% mejor a las alertas de precio.</small>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 2rem;">
+        <div class="card">
+            <h3><span class="step-tag">Resultados</span> Por Dispositivo</h3>
+            <table class="device-table">
+                <tr><td>Desktop</td><td>12.1% CR</td><td><span class="win-pill">+5%</span></td></tr>
+                <tr><td>Mobile</td><td>18.4% CR</td><td><span class="win-pill">+22%</span></td></tr>
+                <tr><td>Tablet</td><td>9.2% CR</td><td><span>--</span></td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3><span class="step-tag">UX</span> Intensidad de Clics (B)</h3>
+            <div class="heatmap-container">
+                <div class="heatmap-bar" style="height: 40%;"></div>
+                <div class="heatmap-bar" style="height: 70%;"></div>
+                <div class="heatmap-bar" style="height: 100%;"></div>
+                <div class="heatmap-bar" style="height: 85%;"></div>
+                <div class="heatmap-bar" style="height: 30%;"></div>
+            </div>
+            <p style="font-size: 0.8rem; text-align: center; margin-top: 10px;">Interacción en el Widget de IA</p>
+        </div>
+
+        <div class="card">
+            <h3>Meta de Conversión</h3>
+            <div class="metric-value">14.2%</div>
+            <div style="width: 100%; background: #eee; height: 10px; border-radius: 5px;">
+                <div style="width: 92%; background: var(--success); height: 100%; border-radius: 5px;"></div>
+            </div>
+            <p style="font-size:0.8rem; margin-top:10px;">A 0.8% del objetivo trimestral</p>
+        </div>
+    </div>
+
+    <div class="card" style="border-left: 5px solid var(--primary);">
+        <h3><span class="step-tag">Sección 7</span> Aplicación Práctica: Web Scraping + Modelos Predictivos</h3>
+        <p>El experimento utiliza un flujo de datos en tres etapas para alimentar la <strong>Variante B</strong>:</p>
+        <div style="display:flex; gap:20px; margin-top:15px;">
+            <div style="flex:1; padding:15px; background:var(--bg-light); border-radius:8px;">
+                <strong>1. Extracción (Scraping)</strong><br>Monitoreo en tiempo real de 15 competidores.
+            </div>
+            <div style="flex:1; padding:15px; background:var(--bg-light); border-radius:8px;">
+                <strong>2. Predicción (LLM)</strong><br>Análisis de series temporales para detectar valles de precio.
+            </div>
+            <div style="flex:1; padding:15px; background:var(--bg-light); border-radius:8px;">
+                <strong>3. Visualización (A/B)</strong><br>Presentación del insight al usuario final.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('mainAbChart').getContext('2d');
+    
+    // Gradientes para el gráfico
+    const gradientB = ctx.createLinearGradient(0, 0, 0, 400);
+    gradientB.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
+    gradientB.addColorStop(1, 'rgba(99, 102, 241, 0)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+            datasets: [{
+                label: 'Variante B: AI Prediction Insight',
+                data: [10, 12, 11, 14, 15, 18, 17, 19, 21, 22, 20, 23, 25, 24],
+                borderColor: '#6366f1',
+                backgroundColor: gradientB,
+                fill: true,
+                tension: 0.4,
+                borderWidth: 4,
+                pointRadius: 4
+            }, {
+                label: 'Variante A: Control (Precio Plano)',
+                data: [10, 11, 10, 11, 12, 11, 10, 11, 12, 11, 10, 11, 12, 11],
+                borderColor: '#94a3b8',
+                borderDash: [5, 5],
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { position: 'top', labels: { font: { family: 'Plus Jakarta Sans', weight: 'bold' } } }
+            },
+            scales: {
+                y: { grid: { display: false }, ticks: { callback: value => value + '%' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

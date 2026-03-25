@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusPrice AI | Módulo 4: Decisión</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #1e293b;
+            --accent: #06b6d4;
+            --bg: #f8fafc;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); margin: 0; display: flex; min-height: 100vh; }
+
+        /* Sidebar (Consistencia Total) */
+        .sidebar { width: 280px; background: var(--secondary); color: white; padding: 30px 20px; position: fixed; height: 100vh; }
+        .sidebar h2 { color: var(--accent); font-size: 1.4rem; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .nav-links { list-style: none; padding: 0; }
+        .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 15px; display: block; border-radius: 8px; transition: 0.3s; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { background: var(--primary); color: white; }
+
+        /* Contenido */
+        .main-content { margin-left: 320px; padding: 40px; width: calc(100% - 320px); }
+        .step-badge { background: #dcfce7; color: #166534; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        
+        h1 { font-size: 2.2rem; color: var(--secondary); margin-top: 10px; }
+
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-bottom: 30px; }
+
+        /* Estilo de la Decisión */
+        .winner-banner {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .winner-banner h2 { font-size: 2.5rem; margin: 0; }
+
+        .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        .list-item { display: flex; align-items: center; margin-bottom: 15px; }
+        .check { color: var(--success); font-weight: bold; margin-right: 10px; }
+
+        .deploy-button {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 20px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+        .deploy-button:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>NexusPrice AI Lab</h2>
+        <ul class="nav-links">
+            <li><a href="page1.html">🏠 Estrategia Global</a></li>
+            <li><a href="page2.html">📊 Analítica A/B</a></li>
+            <li><a href="page3.html">🧠 AI Engine (LLM)</a></li>
+            <li><a href="page4.html" class="active">🏆 Decisión Final</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-area">
+            <span class="step-badge">Sección 8: Conclusión</span>
+            <h1>Resultados Finales y Ejecución</h1>
+            <p>Evaluación de rentabilidad y plan de implementación masiva de NexusPrice AI.</p>
+        </div>
+
+        <div class="winner-banner">
+            <p style="text-transform: uppercase; font-weight: 700; opacity: 0.9;">Resultado del Experimento</p>
+            <h2>Variante B: GANADORA</h2>
+            <p style="font-size: 1.1rem; margin-top: 10px;">Incremento Neto en Conversión: <strong>+45.8%</strong></p>
+        </div>
+
+        <div class="roi-grid">
+            <div class="card">
+                <h3>Impacto en el ROI</h3>
+                <canvas id="roiChart" height="200"></canvas>
+                <div style="margin-top:20px; text-align:center;">
+                    <small style="color:#64748b;">Proyección basada en tráfico actual de 100k usuarios/mes.</small>
+                    <h4 style="color:var(--success);">+$18,450 USD / mes</h4>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Próximos Pasos Estratégicos</h3>
+                <div class="list-item"><span class="check">✓</span> Despliegue al 100% del tráfico global.</div>
+                <div class="list-item"><span class="check">✓</span> Integración del LLM en categorías de "Moda".</div>
+                <div class="list-item"><span class="check">✓</span> Optimización de costos de API de Scraping.</div>
+                <div class="list-item"><span class="check">✓</span> Monitoreo de latencia en dispositivos móviles.</div>
+                
+                <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 20px 0;">
+                
+                <h3>Nivel de Riesgo</h3>
+                <p style="color:var(--success); font-weight: 700;">BAJO (99.8% de certeza estadística)</p>
+                <p><small>El valor estratégico de la plataforma se ha validado mediante comportamiento real del usuario, reduciendo el riesgo de inversión en infraestructura tecnológica.</small></p>
+            </div>
+        </div>
+
+        <button class="deploy-button" onclick="alert('Iniciando despliegue de NexusPrice AI v2.0...')">
+            IMPLEMENTAR VERSIÓN PREDICTIVA (V2.0)
+        </button>
+
+        <footer style="margin-top: 40px; text-align: center; color: #94a3b8; font-size: 0.8rem;">
+            Dashboard de Simulación A/B | Broward International University | Mar 2026
+        </footer>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('roiChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Costo Operativo', 'Margen de Ganancia (A)', 'Incremento por IA (B)'],
+                datasets: [{
+                    data: [30, 45, 25],
+                    backgroundColor: ['#e2e8f0', '#6366f1', '#10b981'],
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

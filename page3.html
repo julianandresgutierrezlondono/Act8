@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusPrice AI | Módulo 3: AI Engine</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #1e293b;
+            --accent: #06b6d4;
+            --bg: #f8fafc;
+            --ai-glow: rgba(6, 182, 212, 0.2);
+        }
+
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); margin: 0; display: flex; min-height: 100vh; }
+
+        /* Sidebar (Consistencia Total) */
+        .sidebar { width: 280px; background: var(--secondary); color: white; padding: 30px 20px; position: fixed; height: 100vh; }
+        .sidebar h2 { color: var(--accent); font-size: 1.4rem; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .nav-links { list-style: none; padding: 0; }
+        .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 15px; display: block; border-radius: 8px; transition: 0.3s; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { background: var(--primary); color: white; }
+
+        /* Contenido */
+        .main-content { margin-left: 320px; padding: 40px; width: calc(100% - 320px); }
+        .step-badge { background: #e0f7fa; color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        
+        h1 { font-size: 2.2rem; color: var(--secondary); margin-top: 10px; }
+
+        .ai-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 25px; margin-top: 30px; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+
+        /* Tabla de Segmentación */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { text-align: left; padding: 12px; color: #64748b; font-size: 0.85rem; border-bottom: 2px solid #f1f5f9; }
+        td { padding: 15px 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; }
+        .accuracy-pill { background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
+
+        /* Radar Chart Area */
+        .radar-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .process-flow {
+            background: var(--secondary);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .flow-step { text-align: center; flex: 1; position: relative; }
+        .flow-step:not(:last-child)::after { content: '→'; position: absolute; right: -10%; top: 30%; color: var(--accent); font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>NexusPrice AI Lab</h2>
+        <ul class="nav-links">
+            <li><a href="page1.html">🏠 Estrategia Global</a></li>
+            <li><a href="page2.html">📊 Analítica A/B</a></li>
+            <li><a href="page3.html" class="active">🧠 AI Engine (LLM)</a></li>
+            <li><a href="page4.html">🏆 Decisión Final</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-area">
+            <span class="step-badge">Secciones 6 y 7</span>
+            <h1>Rendimiento del Modelo Predictivo</h1>
+            <p>Análisis de precisión del LLM vs Datos Reales de Web Scraping.</p>
+        </div>
+
+        <div class="ai-grid">
+            <div class="card">
+                <h3>Impacto por Categoría de Producto</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Categoría</th>
+                            <th>Confianza IA</th>
+                            <th>Mejora CTR</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Electrónica</strong></td>
+                            <td><span class="accuracy-pill">94.2%</span></td>
+                            <td style="color:var(--primary); font-weight:700;">+28.4%</td>
+                            <td>Optimizado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hogar</strong></td>
+                            <td><span class="accuracy-pill">88.5%</span></td>
+                            <td style="color:var(--primary); font-weight:700;">+14.2%</td>
+                            <td>Estable</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Videojuegos</strong></td>
+                            <td><span class="accuracy-pill">91.0%</span></td>
+                            <td style="color:var(--primary); font-weight:700;">+21.5%</td>
+                            <td>Optimizado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Moda</strong></td>
+                            <td><span class="accuracy-pill" style="background:#fee2e2; color:#991b1b;">72.3%</span></td>
+                            <td style="color:var(--primary); font-weight:700;">+5.1%</td>
+                            <td>Requiere Datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card radar-container">
+                <h3>Atributos del Modelo</h3>
+                <canvas id="radarChart" height="250"></canvas>
+            </div>
+        </div>
+
+        <div class="process-flow">
+            <div class="flow-step">
+                <div style="font-size: 1.5rem;">🕷️</div>
+                <small>Web Scraping<br>(Real-Time)</small>
+            </div>
+            <div class="flow-step">
+                <div style="font-size: 1.5rem;">🤖</div>
+                <small>LLM Analysis<br>(Predicción)</small>
+            </div>
+            <div class="flow-step">
+                <div style="font-size: 1.5rem;">📈</div>
+                <small>A/B Delivery<br>(User View)</small>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:30px;">
+            <h3>Análisis del Comportamiento (Insight Psicológico)</h3>
+            <p>Como especialista en psicología, se determinó que en categorías de <strong>Alta Volatilidad</strong> (Electrónica), la predicción de la IA reduce la <em>disonancia cognitiva</em> post-compra, lo que explica el alto incremento en el CTR (+28.4%).</p>
+        </div>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Precisión', 'Velocidad', 'Escalabilidad', 'Seguridad', 'Retención'],
+                datasets: [{
+                    label: 'Performance del Modelo B',
+                    data: [94, 85, 90, 88, 92],
+                    fill: true,
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    borderColor: 'rgb(6, 182, 212)',
+                    pointBackgroundColor: 'rgb(6, 182, 212)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: { r: { beginAtZero: true, max: 100 } }
+            }
+        });
+    </script>
+</body>
+</html>

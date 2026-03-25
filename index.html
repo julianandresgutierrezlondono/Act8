@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusPrice AI | A/B Testing Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .badge-live {
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Grid de KPIs */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: var(--secondary);
+            margin: 0 0 10px 0;
+        }
+
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-card .trend {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .trend.up { color: var(--success); }
+
+        /* Comparativa Visual */
+        .comparison-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .variant-box {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .variant-box.winner {
+            border-color: var(--success);
+            position: relative;
+        }
+
+        .winner-tag {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .mockup {
+            background: #f1f5f9;
+            height: 150px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #cbd5e1;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .ai-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        /* Gráfico */
+        .chart-container {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin-bottom: 30px;
+        }
+
+        .conclusions {
+            background: #1e293b;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h2 { margin-top: 0; }
+        
+        @media (max-width: 768px) {
+            .comparison-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">NexusPrice AI <span style="font-weight:300; color:var(--secondary)">| Insights</span></div>
+        <div>
+            <span class="badge-live">Experimento: AB-TEST-08</span>
+        </div>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Tasa de Conversión Global</h3>
+            <div class="value">10.45%</div>
+            <div class="trend up">▲ +45.8% vs control</div>
+        </div>
+        <div class="stat-card">
+            <h3>Usuarios en Prueba</h3>
+            <div class="value">20,482</div>
+            <div class="trend" style="color:var(--secondary)">Distribución 50/50</div>
+        </div>
+        <div class="stat-card">
+            <h3>Confianza Estadística</h3>
+            <div class="value">99.2%</div>
+            <div class="trend up">Resultado Significativo</div>
+        </div>
+        <div class="stat-card">
+            <h3>Ingresos Proyectados</h3>
+            <div class="value">$12.5k</div>
+            <div class="trend up">▲ Incremento mensual</div>
+        </div>
+    </div>
+
+    <div class="comparison-section">
+        <div class="variant-box">
+            <h3>Variante A (Control)</h3>
+            <p>Muestra solo el precio actual obtenido por Web Scraping.</p>
+            <div class="mockup">
+                <div>
+                    <strong>iPhone 15 Pro</strong><br>
+                    <span style="font-size: 20px;">$999.00</span>
+                </div>
+            </div>
+            <p style="text-align:center; font-weight:bold; margin-top:15px; color:var(--danger)">CTR: 8.5%</p>
+        </div>
+
+        <div class="variant-box winner">
+            <div class="winner-tag">GANADORA (VERSIÓN B)</div>
+            <h3>Variante B (AI Predict)</h3>
+            <p>Incluye modelo predictivo LLM sobre tendencia de precios.</p>
+            <div class="mockup">
+                <div>
+                    <strong>iPhone 15 Pro</strong><br>
+                    <span style="font-size: 20px;">$999.00</span><br>
+                    <div class="ai-badge">🤖 IA: Se espera baja de 10% en 4 días</div>
+                </div>
+            </div>
+            <p style="text-align:center; font-weight:bold; margin-top:15px; color:var(--success)">CTR: 12.4%</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Evolución de la Conversión (8 Semanas)</h2>
+        <canvas id="abChart" height="100"></canvas>
+    </div>
+
+    <div class="conclusions">
+        <h2>Conclusiones de la Estrategia de Ventas</h2>
+        <ul>
+            <li><strong>Reducción de Fricción:</strong> El modelo predictivo de NexusPrice AI reduce la ansiedad del comprador al confirmar si es un "buen momento" para comprar.</li>
+            <li><strong>Engagement:</strong> El tiempo de permanencia en la plataforma aumentó un 120% en la Variante B.</li>
+            <li><strong>Decisión:</strong> Se recomienda la implementación inmediata de la Variante B en toda la plataforma.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('abChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Día 1', 'Día 2', 'Día 3', 'Día 4', 'Día 5', 'Día 6', 'Día 7', 'Día 8', 'Día 9', 'Día 10', 'Día 11', 'Día 12', 'Día 13', 'Día 14'],
+            datasets: [{
+                label: 'Variante B (AI)',
+                data: [8, 8.2, 8.5, 9.2, 10.1, 10.5, 11, 11.2, 11.8, 12, 12.2, 12.3, 12.4, 12.4],
+                borderColor: '#2563eb',
+                backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Variante A (Control)',
+                data: [8.1, 7.9, 8.2, 8.3, 8.1, 8.4, 8.5, 8.3, 8.5, 8.4, 8.6, 8.5, 8.4, 8.5],
+                borderColor: '#94a3b8',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    title: { display: true, text: 'Tasa de Conversión (%)' }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

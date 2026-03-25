@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusPrice AI | Módulo 2: Analítica</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #1e293b;
+            --accent: #06b6d4;
+            --bg: #f8fafc;
+            --success: #10b981;
+        }
+
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); margin: 0; display: flex; min-height: 100vh; }
+
+        /* Sidebar (Mantenemos consistencia con page1) */
+        .sidebar { width: 280px; background: var(--secondary); color: white; padding: 30px 20px; position: fixed; height: 100vh; }
+        .sidebar h2 { color: var(--accent); font-size: 1.4rem; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .nav-links { list-style: none; padding: 0; }
+        .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 12px 15px; display: block; border-radius: 8px; transition: 0.3s; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { background: var(--primary); color: white; }
+
+        /* Contenido */
+        .main-content { margin-left: 320px; padding: 40px; width: calc(100% - 320px); }
+        .step-badge { background: #e0e7ff; color: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        
+        .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px 0; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+        
+        .kpi-title { color: #64748b; font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; }
+        .kpi-value { font-size: 2.2rem; font-weight: 800; color: var(--secondary); }
+        .kpi-trend { font-size: 0.85rem; font-weight: 700; margin-top: 5px; }
+        .trend-up { color: var(--success); }
+
+        .chart-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-top: 20px; }
+        
+        h1 { font-size: 2.2rem; color: var(--secondary); margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>NexusPrice AI Lab</h2>
+        <ul class="nav-links">
+            <li><a href="page1.html">🏠 Estrategia Global</a></li>
+            <li><a href="page2.html" class="active">📊 Analítica A/B</a></li>
+            <li><a href="page3.html">🧠 AI Engine (LLM)</a></li>
+            <li><a href="page4.html">🏆 Decisión Final</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-area">
+            <span class="step-badge">Secciones 4 y 5</span>
+            <h1>Analítica de Resultados A/B</h1>
+            <p>Monitoreo de comportamiento de usuarios y tasas de conversión en tiempo real.</p>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="card">
+                <div class="kpi-title">CTR PROMEDIO (B)</div>
+                <div class="kpi-value">12.5%</div>
+                <div class="kpi-trend trend-up">▲ +4.3% vs Control</div>
+            </div>
+            <div class="card">
+                <div class="kpi-title">MUESTRA TOTAL</div>
+                <div class="kpi-value">24,500</div>
+                <div class="kpi-trend" style="color:#94a3b8">Usuarios únicos</div>
+            </div>
+            <div class="card">
+                <div class="kpi-title">CONFIANZA EST.</div>
+                <div class="kpi-value">99.8%</div>
+                <div class="kpi-trend trend-up">Resultado Significativo</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3>Rendimiento Diario (Tasa de Conversión)</h3>
+            <canvas id="conversionChart" height="120"></canvas>
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h3>Análisis del Gráfico</h3>
+            <p>Se observa que durante los primeros 3 días la diferencia era mínima. A partir del <strong>Día 4</strong>, la variante B (Predictiva) comenzó a despegar. Esto sugiere que el usuario necesita un periodo de "asimilación" de la herramienta IA antes de actuar sobre la sugerencia de compra.</p>
+        </div>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('conversionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Día 1', 'Día 2', 'Día 3', 'Día 4', 'Día 5', 'Día 6', 'Día 7', 'Día 8', 'Día 9', 'Día 10', 'Día 11', 'Día 12', 'Día 13', 'Día 14'],
+                datasets: [{
+                    label: 'Variante B (Predictiva)',
+                    data: [8.1, 8.3, 8.5, 9.8, 10.5, 11.2, 11.8, 11.5, 12.1, 12.4, 12.3, 12.5, 12.6, 12.5],
+                    borderColor: '#4f46e5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3
+                }, {
+                    label: 'Control (A)',
+                    data: [8.0, 8.2, 8.1, 8.3, 8.2, 8.4, 8.3, 8.2, 8.4, 8.3, 8.5, 8.4, 8.3, 8.2],
+                    borderColor: '#94a3b8',
+                    borderDash: [5, 5],
+                    tension: 0.2,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: { beginAtZero: false, ticks: { callback: v => v + '%' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
